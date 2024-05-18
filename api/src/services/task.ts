@@ -5,8 +5,11 @@ import { Task } from '../types/Task';
 
 dotenv.config();
 
-AWS.config.update({ region: 'sa-east-1' });
-console.log('Region set to', AWS.config.region); // Deve imprimir "Region set to us-east-1"
+AWS.config.update({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    region: process.env.AWS_DEFAULT_REGION,
+  });
 
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 
@@ -17,7 +20,6 @@ class TaskService {
             Item: task,
         };
 
-        console.log('>>>Task service', task);
         console.log('>>>>PArams', params);
         
 
