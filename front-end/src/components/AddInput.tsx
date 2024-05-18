@@ -7,7 +7,11 @@ import api from '../../api';
 import Snackbar from '@mui/material/Snackbar';
 import  { SnackbarCloseReason } from '@mui/material/Snackbar';
 
-export default function ButtonAppBar() {
+interface AddInputProps {
+    onTaskAdded: () => void;
+}
+
+export default function ButtonAppBar({ onTaskAdded }: AddInputProps) {
     const [task, setTask] = useState<string>('');
     const [open, setOpen] = useState<boolean>(false);
 
@@ -19,6 +23,7 @@ const createTask = async () => {
         console.log('Tarefa criada', response.data);
         setOpen(true);
         setTask('');
+        onTaskAdded();
     } catch (error) {
         console.error('Erro ao criar tarefa', error);
     }
